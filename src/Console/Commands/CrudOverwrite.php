@@ -73,14 +73,14 @@ class CrudOverwrite extends Command
 
     protected function processPublish($file, $label)
     {
-        $sourceFile = $this->packageDir. $file . '.blade.php';
-        $copiedFile = $this->appDir . $file . '.blade.php';
+        $sourceFile = $this->packageDir.$file.'.blade.php';
+        $copiedFile = $this->appDir.$file.'.blade.php';
 
-        if (!file_exists($sourceFile)) {
+        if (! file_exists($sourceFile)) {
             return $this->error(
-                'Cannot find source ' . $label . ' at '
-                . $sourceFile .
-                ' - make sure you\'ve picked a real ' . $label . ' type'
+                'Cannot find source '.$label.' at '
+                .$sourceFile.
+                ' - make sure you\'ve picked a real '.$label.' type'
             );
         } else {
             $canCopy = true;
@@ -88,7 +88,7 @@ class CrudOverwrite extends Command
             if (file_exists($copiedFile)) {
                 $canCopy = $this->confirm(
                     'File already exists at '
-                    . $copiedFile .
+                    .$copiedFile.
                     ' - do you want to overwrite it?'
                 );
             }
@@ -96,7 +96,7 @@ class CrudOverwrite extends Command
             if ($canCopy) {
                 $path = pathinfo($copiedFile);
 
-                if (!file_exists($path['dirname'])) {
+                if (! file_exists($path['dirname'])) {
                     mkdir($path['dirname'], 0755, true);
                 }
 
@@ -105,9 +105,9 @@ class CrudOverwrite extends Command
                 } else {
                     return $this->error(
                         'Failed to copy '
-                        . $sourceFile .
+                        .$sourceFile.
                         ' to '
-                        . $copiedFile .
+                        .$copiedFile.
                         ' for unknown reason'
                     );
                 }
@@ -117,16 +117,16 @@ class CrudOverwrite extends Command
 
     protected function publishField()
     {
-        return $this->processPublish('fields/' . $this->name, 'field');
+        return $this->processPublish('fields/'.$this->name, 'field');
     }
 
     protected function publishColumn()
     {
-        return $this->processPublish('columns/' . $this->name, 'column');
+        return $this->processPublish('columns/'.$this->name, 'column');
     }
 
     protected function publishButton()
     {
-        return $this->processPublish('buttons/' . $this->name, 'button');
+        return $this->processPublish('buttons/'.$this->name, 'button');
     }
 }
